@@ -1,0 +1,40 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath "io.ratpack:ratpack-gradle:1.9.0"
+  }
+}
+
+apply plugin: "io.ratpack.ratpack-java"
+apply plugin: "idea"
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+    implementation 'io.ratpack:ratpack-core:1.9.0'
+    implementation 'io.ratpack:ratpack-guice:1.9.0'
+    runtimeOnly "org.slf4j:slf4j-simple:1.7.36"
+    implementation 'javax.inject:javax.inject:1'
+    implementation 'org.postgresql:postgresql:42.2.23'
+    implementation 'com.zaxxer:HikariCP:4.0.3'
+    testImplementation 'io.ratpack:ratpack-test:1.9.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
+    implementation 'redis.clients:jedis:4.0.1' // Jedis for Redis
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.0'
+    implementation 'io.github.cdimascio:dotenv-java:2.2.0'
+}
+
+// handle warning
+application {
+    applicationDefaultJvmArgs = [
+        "--add-opens=java.base/java.lang=ALL-UNNAMED",
+        "--add-opens=java.base/java.lang.reflect=ALL-UNNAMED"
+    ]
+}
+
+mainClassName = "my.app.Main"
