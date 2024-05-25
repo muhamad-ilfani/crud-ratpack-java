@@ -58,6 +58,7 @@ public class GetAllProductHandler implements Handler {
                 System.out.println(getProductCache);
                 // map inside data
                 response.put("data", getProductCache);
+                response.put("total_entries", getProductCache.size());
                 ctx.getResponse().status(Status.OK);
                 ctx.render(Jackson.json(response));
 
@@ -72,8 +73,9 @@ public class GetAllProductHandler implements Handler {
                 List<Product> products = productService.getAllProducts(limit, page, sort);
                 // map inside data
                 response.put("data", products);
+                response.put("total_entries", products.size());
 
-                // SET RESPONSE TO REDIS with TTL 20 Minutes
+                // SET RESPONSE TO REDIS with TTL 30 Minutes
                 jedis.setex(redisKey, 30*60, objectMapper.writeValueAsString(products));
 
                 ctx.getResponse().status(Status.OK);

@@ -26,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
         try(Connection connection = dataSource.getConnection()){
             String[] sortList = sort.split(":");
             List<Product> products = new ArrayList<>();
-            String sql = "SELECT * FROM servicea.products ";
+            String sql = "SELECT * FROM products ";
             sql = sql + "ORDER BY " + sortList[0] + " " + sortList[1];
             sql = sql + " LIMIT ? OFFSET ?";
             try(PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -47,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Optional<Product> getProductByID(int id) throws Exception {
         try(Connection connection = dataSource.getConnection()) {
-            String sql = "SELECT * FROM servicea.products WHERE id = ?";
+            String sql = "SELECT * FROM products WHERE id = ?";
             try(PreparedStatement stmt = connection.prepareStatement(sql)) {
                 stmt.setInt(1, id);
                 try(ResultSet rs = stmt.executeQuery()) {
@@ -65,7 +65,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public int createProduct(Product product) throws Exception {
         try(Connection connection = dataSource.getConnection()) {
-            String sql = "INSERT INTO servicea.products(name, quantity, price) VALUES (?, ?, ?) RETURNING id";
+            String sql = "INSERT INTO products(name, quantity, price) VALUES (?, ?, ?) RETURNING id";
             try(PreparedStatement stmt = connection.prepareStatement(sql)) {
                 stmt.setString(1, product.getName());
                 stmt.setInt(2, product.getQuantity());
@@ -86,7 +86,7 @@ public class ProductServiceImpl implements ProductService {
     public boolean updateProduct(Product product, int id) throws Exception {
         //Optional<Product> getProduct = this.getProductByID(id);
         try(Connection connection = dataSource.getConnection()) {
-            String sql = "UPDATE servicea.products SET name = ?, quantity = ?, price = ?, modify_at = now(), modify_by = 'SYSTEM' where id = ?";
+            String sql = "UPDATE products SET name = ?, quantity = ?, price = ?, modify_at = now(), modify_by = 'SYSTEM' where id = ?";
             try(PreparedStatement stmt = connection.prepareStatement(sql)) {
                 stmt.setString(1, product.getName());
                 stmt.setInt(2, product.getQuantity());
@@ -102,7 +102,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public boolean deleteProduct(int id) throws Exception {
         try(Connection connection = dataSource.getConnection()) {
-            String sql = "DELETE FROM servicea.products WHERE id = ?;";
+            String sql = "DELETE FROM products WHERE id = ?;";
             try(PreparedStatement stmt = connection.prepareStatement(sql)) {
                 stmt.setInt(1, id);
                 int rowsAffected = stmt.executeUpdate();

@@ -17,12 +17,14 @@ public class DatabaseModule extends AbstractModule{
         String dbUserName = dotenv.get("DB_USER_NAME");
         String dbPassword = dotenv.get("DB_PASSWORD");
         String dbDriver = dotenv.get("DB_DRIVER");
+        String dbSchema = dotenv.get("DB_SCHEMA");
 
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(dbUrl);
         config.setUsername(dbUserName);
         config.setPassword(dbPassword);
         config.setDriverClassName(dbDriver);
+        config.setSchema(dbSchema);
         return new HikariDataSource(config);
     }
 
