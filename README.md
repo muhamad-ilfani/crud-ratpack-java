@@ -45,7 +45,7 @@ Below is the structure code for this project
 ## DB Structure
 Create table with name products with column as below:
 ```sh
-CREATE TABLE IF NOT EXISTS servicea.products(
+CREATE TABLE IF NOT EXISTS products(
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     quantity NUMERIC(50, 3) NOT NULL,
