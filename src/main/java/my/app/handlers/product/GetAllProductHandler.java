@@ -73,7 +73,10 @@ public class GetAllProductHandler implements Handler {
                 List<Product> products = productService.getAllProducts(limit, page, sort);
                 // map inside data
                 response.put("data", products);
-                response.put("total_entries", products.size());
+
+                // Count products
+                int count = productService.countAllProducts();
+                response.put("total_entries", count);
 
                 // SET RESPONSE TO REDIS with TTL 30 Minutes
                 jedis.setex(redisKey, 30*60, objectMapper.writeValueAsString(products));

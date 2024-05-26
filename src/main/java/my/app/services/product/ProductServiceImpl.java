@@ -45,6 +45,22 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public int countAllProducts() throws Exception {
+        try(Connection connection = dataSource.getConnection()){
+            String sql = "SELECT COUNT(*) FROM products ";
+            try(PreparedStatement stmt = connection.prepareStatement(sql)) {
+                try(ResultSet rs = stmt.executeQuery()) {
+                    while(rs.next()) {
+                        return rs.getInt(1);
+                    }
+                }
+            }
+
+            return 0;
+        }
+    }
+
+    @Override
     public Optional<Product> getProductByID(int id) throws Exception {
         try(Connection connection = dataSource.getConnection()) {
             String sql = "SELECT * FROM products WHERE id = ?";
