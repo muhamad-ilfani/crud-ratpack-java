@@ -9,6 +9,7 @@ import my.app.handlers.product.GetProductByIdHandler;
 import my.app.handlers.product.UpdateProductHandler;
 import my.app.handlers.product.CreateProductHandler;
 import my.app.handlers.product.DeleteProductHandler;
+import my.app.redis.RedisModule;
 
 public class Main {
  public static void main(String... args) throws Exception {
@@ -17,6 +18,7 @@ public class Main {
     RatpackServer.start(server -> server
       .serverConfig(config -> config.port(portService))
       .registry(Guice.registry(b -> {
+        b.module(RedisModule.class);
         b.module(MyModule.class);
         b.module(DatabaseModule.class);
       }))
