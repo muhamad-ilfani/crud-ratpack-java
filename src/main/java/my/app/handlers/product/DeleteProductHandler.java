@@ -35,6 +35,7 @@ public class DeleteProductHandler implements Handler {
             response.put("message", "invalid parameter id");
             ctx.getResponse().status(Status.BAD_REQUEST);
             ctx.render(Jackson.json(response));
+            return;
         }
 
         try{
@@ -50,10 +51,12 @@ public class DeleteProductHandler implements Handler {
                 response.put("message", "Product deleted successfully");
                 ctx.getResponse().status(Status.OK);
                 ctx.render(Jackson.json(response));
+                return;
             } else {
                 response.put("message", "Product not found");
                 ctx.getResponse().status(Status.NOT_FOUND);
                 ctx.render(Jackson.json(response));
+                return;
             }
         } catch (Exception e) {
             // Handle exception
@@ -63,6 +66,7 @@ public class DeleteProductHandler implements Handler {
             
             ctx.getResponse().status(Status.INTERNAL_SERVER_ERROR);
             ctx.render(Jackson.json(errorResponse));
+            return;
         }
     }
 }

@@ -83,6 +83,7 @@ public class GetAllProductHandler implements Handler {
 
                 ctx.getResponse().status(Status.OK);
                 ctx.render(Jackson.json(response));
+                return;
             } catch (Exception e) {
                 // Handle exception
                 Map<String, Object> errorResponse = new HashMap<>();
@@ -91,6 +92,7 @@ public class GetAllProductHandler implements Handler {
                 
                 ctx.getResponse().status(Status.INTERNAL_SERVER_ERROR);
                 ctx.render(Jackson.json(errorResponse));
+                return;
             }
         }
     }

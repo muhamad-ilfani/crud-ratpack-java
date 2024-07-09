@@ -37,6 +37,7 @@ public class UpdateProductHandler implements Handler{
                 response.put("message", "invalid parameter id");
                 ctx.getResponse().status(Status.BAD_REQUEST);
                 ctx.render(Jackson.json(response));
+                return;
             }
 
             try {

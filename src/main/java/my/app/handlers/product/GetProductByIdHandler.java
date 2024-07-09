@@ -33,6 +33,7 @@ public class GetProductByIdHandler implements Handler{
             response.put("message", "invalid parameter id");
             ctx.getResponse().status(Status.BAD_REQUEST);
             ctx.render(Jackson.json(response));
+            return;
         }
 
         try{
@@ -51,6 +52,7 @@ public class GetProductByIdHandler implements Handler{
             
             ctx.getResponse().status(Status.INTERNAL_SERVER_ERROR);
             ctx.render(Jackson.json(errorResponse));
+            return;
         }
     }
 }
